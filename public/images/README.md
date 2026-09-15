@@ -1,23 +1,41 @@
 # Images
 
-Drop photos and logo files in this folder. Anything in here is available on the
-site at `/images/<filename>`.
+Everything in this folder is published with the website and available at
+`/images/<filename>`. Keep it lean — these files get downloaded by visitors.
 
-## What goes where
+Full-resolution originals live in `design-assets/` at the top of the project
+(that folder is never published).
 
-| File | Where it shows up | How to switch it on |
+## What's here
+
+| File | Where it shows up | To replace it |
 | --- | --- | --- |
-| `logo.svg` (or `.png`) | Header + footer logo | Set `USE_LOGO_IMAGE = true` in `src/components/layout/Logo.tsx` |
-| `kate-headshot.jpg` | About page photo | Nothing to do — it replaces the placeholder automatically |
-| `og-image.jpg` | The preview image when a link is shared | Uncomment the `images:` block in `src/lib/seo.ts` |
-| `work/*.jpg` | Optional video cover images | Add `thumbnail: "/images/work/your-file.jpg"` to the video in `src/content/portfolio.ts` |
+| `logo.png` | Header | Swap the file, keep the name. If the shape changes, update `WIDTH`/`HEIGHT` in `src/components/layout/Logo.tsx` |
+| `logo-light.png` | Footer (reversed version for the dark background) | Same as above — needs to be readable on dark brown |
+| `logo-mark.png` | The circular "ki" mark, kept here for reuse | — |
+| `kate-headshot.jpg` | About page | Swap the file, keep the name |
+| `work/` | Optional cover images for portfolio videos | Add `thumbnail: "/images/work/your-file.jpg"` to the video in `src/content/portfolio.ts` |
+
+The browser tab icon and the social share card are **not** in this folder —
+they live in `src/app/` (see below).
 
 ## Sizes that work well
 
-- **Headshot** — portrait, around 900 x 1200px
+- **Headshot** — portrait, around 1200 x 1600px, saved as JPG
 - **Video covers** — vertical, around 720 x 1280px (a screenshot of the video works)
-- **Share image** — 1200 x 630px
-- **Logo** — SVG is best; if using PNG, export it at 2x the size it displays
+- **Logo** — PNG with a transparent background, around 900px wide
 
-Save photos as JPG (smaller files, faster site). Keep them under ~500KB each
-where possible.
+Keep files under ~500KB where possible.
+
+## Icons and the share card (in `src/app/`)
+
+| File | What it is |
+| --- | --- |
+| `src/app/icon.png` | The little icon in the browser tab |
+| `src/app/apple-icon.png` | The icon when someone saves the site to their phone home screen |
+| `src/app/opengraph-image.jpg` | The picture that appears when the link is texted, posted or messaged |
+| `src/app/twitter-image.jpg` | Same picture, for X/Twitter |
+| `src/app/*.alt.txt` | The description read aloud for those share images |
+
+Replacing any of those files is enough — Next.js wires them up automatically.
+The share images must stay 1200 x 630px.

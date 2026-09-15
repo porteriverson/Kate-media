@@ -59,24 +59,26 @@ export default function AboutPage() {
         </Reveal>
       </Section>
 
-      {/* Results — TODO: real numbers go in src/content/about.ts */}
-      <Section compact>
-        <Reveal>
-          <dl className="grid grid-cols-2 gap-8 sm:gap-6 lg:grid-cols-4">
-            {stats.map((stat) => (
-              // flex-col-reverse shows the number above its label while keeping
-              // the definition-list order (term then description) valid.
-              <div
-                key={stat.label}
-                className="flex flex-col-reverse items-center gap-2 text-center sm:items-start sm:text-left"
-              >
-                <dt className="text-sm leading-relaxed text-cocoa-500">{stat.label}</dt>
-                <dd className="font-heading text-4xl text-blush-600 sm:text-5xl">{stat.value}</dd>
-              </div>
-            ))}
-          </dl>
-        </Reveal>
-      </Section>
+      {/* Results — hidden while `stats` is empty in src/content/about.ts. */}
+      {stats.length > 0 ? (
+        <Section compact>
+          <Reveal>
+            <dl className="grid grid-cols-2 gap-8 sm:gap-6 lg:grid-cols-4">
+              {stats.map((stat) => (
+                // flex-col-reverse shows the number above its label while keeping
+                // the definition-list order (term then description) valid.
+                <div
+                  key={stat.label}
+                  className="flex flex-col-reverse items-center gap-2 text-center sm:items-start sm:text-left"
+                >
+                  <dt className="text-sm leading-relaxed text-cocoa-500">{stat.label}</dt>
+                  <dd className="font-heading text-4xl text-blush-600 sm:text-5xl">{stat.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </Reveal>
+        </Section>
+      ) : null}
 
       {/* How I work */}
       <Section tone="ivory">

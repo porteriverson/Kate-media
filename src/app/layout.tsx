@@ -54,6 +54,14 @@ export const metadata: Metadata = {
     siteName: site.name,
     title: `${site.name} | Short-Form Video & Social Media Management`,
     description: site.description,
+    images: [
+      {
+        url: "/opengraph-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Kate Iverson Media — short-form video and social media management",
+      },
+    ],
   },
   robots: { index: true, follow: true },
 };

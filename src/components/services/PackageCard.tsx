@@ -68,7 +68,7 @@ export function PackageCard({
         size="lg"
         className="mt-8 w-full"
       >
-        {isPreview ? "Learn more" : `Enquire about ${pkg.name}`}
+        {isPreview ? "Learn more" : `Ask about ${pkg.name}`}
       </Button>
     </div>
   );

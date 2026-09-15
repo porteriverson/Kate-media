@@ -7,6 +7,21 @@ import { site } from "@/content/site";
  * ✏️  To change a page's title or description, edit the `buildMetadata(...)`
  * call at the top of that page file in src/app/.
  */
+/* The share card that appears when a link is texted, posted or messaged.
+   The image files themselves are src/app/opengraph-image.jpg and
+   src/app/twitter-image.jpg — replace those files to change the picture.
+
+   Next.js applies them automatically, but ONLY to pages that don't set their
+   own `openGraph` block. Every page here does (for its own title and
+   description), and that replaces the whole block — so the image has to be
+   repeated explicitly, or inner pages would share with no picture at all. */
+const shareImage = {
+  url: "/opengraph-image.jpg",
+  width: 1200,
+  height: 630,
+  alt: "Kate Iverson Media — short-form video and social media management",
+};
+
 export function buildMetadata({
   title,
   description,
@@ -29,14 +44,13 @@ export function buildMetadata({
       siteName: site.name,
       locale: "en_US",
       type: "website",
-      // TODO: add a share image at /public/images/og-image.jpg (1200x630)
-      // and uncomment the lines below so links preview nicely when shared.
-      // images: [{ url: `${site.url}/images/og-image.jpg`, width: 1200, height: 630, alt: site.name }],
+      images: [shareImage],
     },
     twitter: {
       card: "summary_large_image",
       title: `${title} | ${site.name}`,
       description,
+      images: [shareImage],
     },
   };
 }

@@ -23,25 +23,27 @@
   --color-ink: #2b211c; /* body copy */
 
   /* --- Pastel pink: the accent. Used sparingly — buttons, highlights,
-         icons, small details. Never large blocks of color.               */
+         icons, small details. Never large blocks of color.
+         The 400 step is the exact pink sampled from the logo artwork.    */
   --color-blush-50: #fdf6f7;
-  --color-blush-100: #fae8eb;
-  --color-blush-200: #f4d2d8;
-  --color-blush-300: #edb6bf; /* the signature pastel pink */
-  --color-blush-400: #e294a2;
-  --color-blush-500: #c9697c;
-  --color-blush-600: #a84e62; /* dark enough for text on light backgrounds */
+  --color-blush-100: #fbe9eb;
+  --color-blush-200: #f5d4d8;
+  --color-blush-300: #ebb4bb; /* the signature pastel pink (buttons) */
+  --color-blush-400: #df8d97; /* ← logo pink */
+  --color-blush-500: #c96d7a;
+  --color-blush-600: #a84f5e; /* dark enough for text on light backgrounds */
 
-  /* --- Warm brown: the complementary / secondary color ------------------ */
-  --color-cocoa-50: #faf6f2;
-  --color-cocoa-100: #f0e6dd;
-  --color-cocoa-200: #dfcdbe;
-  --color-cocoa-300: #c4a48e;
-  --color-cocoa-400: #a37b60;
-  --color-cocoa-500: #7e5a44; /* muted/secondary text */
-  --color-cocoa-600: #62442f;
-  --color-cocoa-700: #4a3325; /* dark CTA bands + footer */
-  --color-cocoa-800: #33231a; /* text on pink buttons */
+  /* --- Warm brown: the complementary / secondary color.
+         The 500 step is the exact brown sampled from the logo wordmark.  */
+  --color-cocoa-50: #faf6f5;
+  --color-cocoa-100: #f0e5e3;
+  --color-cocoa-200: #ddc8c4;
+  --color-cocoa-300: #c2a19c;
+  --color-cocoa-400: #a17b76;
+  --color-cocoa-500: #7c5652; /* ← logo brown (muted/secondary text) */
+  --color-cocoa-600: #63423f;
+  --color-cocoa-700: #4a302e; /* dark CTA bands + footer */
+  --color-cocoa-800: #33211f; /* text on pink buttons */
 
   /* --- Motion: subtle only --------------------------------------------- */
   --animate-rise: rise 700ms cubic-bezier(0.22, 1, 0.36, 1) both;

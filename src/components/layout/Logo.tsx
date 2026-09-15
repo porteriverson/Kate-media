@@ -6,63 +6,53 @@ import { cn } from "@/lib/utils";
 /* ===========================================================================
    LOGO
    ---------------------------------------------------------------------------
-   Right now this renders a typographic wordmark ("Kate Iverson" in the serif
-   heading font, "social media" underneath).
+   Two versions of the logo live in /public/images/:
 
-   ✏️  TO USE THE REAL LOGO FILE:
-     1. Drop the file into /public/images/  (e.g. /public/images/logo.svg)
-     2. Set USE_LOGO_IMAGE to true below
-     3. Update LOGO_SRC, LOGO_WIDTH and LOGO_HEIGHT to match the real file
+     logo.png        full colour — used on the cream background (header)
+     logo-light.png  reversed    — pink + cream, so it reads on the dark
+                                   brown footer
+
+   ✏️  TO UPDATE THE LOGO: replace those two files, keeping the same names.
+   If the new files are a different shape, update WIDTH and HEIGHT below to
+   match so the image doesn't stretch.
    =========================================================================== */
 
-const USE_LOGO_IMAGE = false; // TODO: flip to true once the logo file is added
-const LOGO_SRC = "/images/logo.svg";
-const LOGO_WIDTH = 180;
-const LOGO_HEIGHT = 48;
+const WIDTH = 900;
+const HEIGHT = 408;
 
 export function Logo({
   tone = "light",
+  priority = false,
   className,
+  imageClassName = "h-14 w-auto sm:h-[4.5rem]",
 }: {
-  /** "light" for use on cream backgrounds, "dark" for the brown footer. */
+  /** "light" for cream backgrounds, "dark" for the brown footer. */
   tone?: "light" | "dark";
+  /** Set true for the header logo so it loads immediately. */
+  priority?: boolean;
   className?: string;
+  /** Controls how big the logo renders. Height only — width follows. */
+  imageClassName?: string;
 }) {
   return (
     <Link
       href="/"
-      aria-label={`${site.name} — home`}
-      className={cn("group inline-flex items-center gap-3", className)}
-    >
-      {USE_LOGO_IMAGE ? (
-        <Image
-          src={LOGO_SRC}
-          alt={site.name}
-          width={LOGO_WIDTH}
-          height={LOGO_HEIGHT}
-          priority
-          className="h-10 w-auto"
-        />
-      ) : (
-        <span className="flex flex-col leading-none">
-          <span
-            className={cn(
-              "font-heading text-xl tracking-tight transition-colors duration-300",
-              tone === "dark" ? "text-cream" : "text-ink group-hover:text-cocoa-600",
-            )}
-          >
-            Kate Iverson
-          </span>
-          <span
-            className={cn(
-              "mt-1 text-[0.625rem] font-medium uppercase tracking-[0.3em]",
-              tone === "dark" ? "text-blush-300" : "text-blush-600",
-            )}
-          >
-            Social Media
-          </span>
-        </span>
+      aria-label={`${site.name}, home`}
+      className={cn(
+        "inline-flex items-center transition-opacity duration-300 hover:opacity-75",
+        className,
       )}
+    >
+      <Image
+        src={tone === "dark" ? "/images/logo-light.png" : "/images/logo.png"}
+        /* The link above is already labelled, so the image itself is
+           decorative — this avoids screen readers reading the name twice. */
+        alt=""
+        width={WIDTH}
+        height={HEIGHT}
+        priority={priority}
+        className={imageClassName}
+      />
     </Link>
   );
 }

@@ -14,9 +14,9 @@ import { buildMetadata } from "@/lib/seo";
    --------------------------------------------------------------------------- */
 
 export const metadata = buildMetadata({
-  title: "Kate Iverson Social Media | Short-Form Video & Social Media Management",
+  title: "Kate Iverson Media | Short-Form Video & Social Media Management",
   description:
-    "Kate Iverson is a social media manager creating short-form video that grows small brands — strategy, filming, editing and posting, handled end to end.",
+    "Kate Iverson is a social media manager creating short-form video that grows small brands. Strategy, filming, editing and posting, handled end to end.",
   path: "/",
 });
 

@@ -5,8 +5,7 @@
    here. The Services page and the cards on the home page both read from this
    file, so you only ever change it in one place.
 
-   TODO: all names, prices and inclusions below are PLACEHOLDERS — update them
-   with Kate's real offerings before the site goes live.
+   The packages and add-ons below match Kate's current pricing sheet.
    =========================================================================== */
 
 export type Package = {
@@ -31,47 +30,49 @@ export const packages: Package[] = [
     id: "starter",
     name: "Starter",
     bestFor: "Brands that want to show up consistently without the overwhelm.",
-    price: "$650",
+    price: "$450",
     priceNote: "per month",
     includes: [
-      "6 short-form videos per month",
-      "1 filming day (on location or self-shot guidance)",
-      "Editing, captions, hooks and trending audio",
-      "Posting to 1 platform of your choice",
-      "Monthly performance snapshot",
+      "1 social media platform",
+      "8 feed posts",
+      "2 short form videos",
+      "Content planning",
+      "Caption writing",
+      "Scheduling",
     ],
   },
   {
-    id: "growth",
-    name: "Growth",
+    id: "professional",
+    name: "Professional",
     bestFor: "Brands ready to grow an audience and turn it into customers.",
-    price: "$1,200",
+    price: "$900",
     priceNote: "per month",
     includes: [
-      "12 short-form videos per month",
-      "2 filming days per month",
-      "Full content calendar + monthly strategy call",
-      "Posting to 2 platforms, plus Stories",
-      "Caption and hashtag strategy",
-      "Community management (comments + DMs, 3x per week)",
-      "Monthly analytics report with next-step recommendations",
+      "Up to 2 platforms",
+      "12 feed posts",
+      "4 short form videos",
+      "Content planning",
+      "Caption writing",
+      "Scheduling",
+      "Monthly analytics",
     ],
     highlighted: true,
   },
   {
-    id: "premium",
-    name: "Premium",
+    id: "growth",
+    name: "Growth",
     bestFor: "Brands that want their social handled completely, start to finish.",
-    price: "$2,000",
+    price: "$1700",
     priceNote: "per month",
     includes: [
-      "20+ short-form videos per month",
-      "Weekly filming or on-call shoot days",
-      "Quarterly brand + content strategy planning",
-      "Posting to 3 platforms, plus Stories and repurposing",
-      "Daily community management",
-      "Influencer and UGC creator coordination",
-      "Bi-weekly reporting and a monthly strategy call",
+      "Up to 3 platforms",
+      "20 feed posts",
+      "8 short form videos",
+      "Content planning",
+      "Caption writing",
+      "Scheduling",
+      "Monthly analytics",
+      "Comment & DM management",
     ],
   },
 ];
@@ -82,7 +83,7 @@ export const packages: Package[] = [
 export const servicesIntro = {
   eyebrow: "Services",
   heading: "Packages built around how much you want off your plate",
-  body: "Every package includes the same thing at its core: content that actually sounds like your brand, posted consistently, with real reporting behind it. The only difference is volume and depth.",
+  body: "Every package covers the same core work: content that sounds like your brand, posted consistently, with reporting behind it. The difference is how much of it you get.",
 };
 
 /* ---------------------------------------------------------------------------
@@ -105,14 +106,44 @@ export const customPackage = {
 };
 
 /* ---------------------------------------------------------------------------
-   Optional add-ons. Delete this array (and it disappears from the page) if
-   Kate doesn't want to list add-ons.
+   Add-ons. Two groups: things existing monthly clients can bolt on, and
+   à la carte prices for anyone who isn't on a retainer. Delete a whole group
+   (or the array) and it disappears from the Services page.
    --------------------------------------------------------------------------- */
-export const addOns = [
-  { name: "Extra filming day", price: "$350" },
-  { name: "One-off content day (10 videos, no retainer)", price: "$800" },
-  { name: "Social audit + 90-day strategy doc", price: "$450" },
-  { name: "Paid ad creative (3 variations)", price: "$300" },
+export type AddOnGroup = {
+  /** Heading on the group's card. */
+  title: string;
+  /** One line under the heading explaining who these prices are for. */
+  note: string;
+  /** The line items. Add or remove freely. */
+  items: { name: string; price: string }[];
+};
+
+export const addOnGroups: AddOnGroup[] = [
+  {
+    title: "Monthly client add-ons",
+    note: "Rates for brands already on a monthly package.",
+    items: [
+      { name: "Short form video", price: "$50" },
+      { name: "Feed post", price: "$25" },
+      { name: "Story set", price: "$20" },
+      { name: "Additional content shoot", price: "$200" },
+      { name: "Added platform", price: "$200" },
+      { name: "Rush content", price: "+$25" },
+    ],
+  },
+  {
+    title: "À la carte services",
+    note: "One-off pricing, no monthly package required.",
+    items: [
+      { name: "Short form video", price: "$100" },
+      { name: "3 video bundle", price: "$275" },
+      { name: "5 video bundle", price: "$425" },
+      { name: "Feed post & caption", price: "$25" },
+      { name: "Content shoot", price: "$300" },
+      { name: "Social media strategy session", price: "$150" },
+    ],
+  },
 ];
 
 /* ---------------------------------------------------------------------------
@@ -120,7 +151,7 @@ export const addOns = [
    dropdown. Built automatically from the packages above, plus two extras.
    --------------------------------------------------------------------------- */
 export const packageOptions = [
-  ...packages.map((pkg) => ({ value: pkg.id, label: `${pkg.name} — ${pkg.price} ${pkg.priceNote}` })),
+  ...packages.map((pkg) => ({ value: pkg.id, label: `${pkg.name} (${pkg.price} ${pkg.priceNote})` })),
   { value: "custom", label: "A custom package" },
-  { value: "not-sure", label: "Not sure yet — I'd like to talk it through" },
+  { value: "not-sure", label: "Not sure yet, I'd like to talk it through" },
 ];

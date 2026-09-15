@@ -11,10 +11,10 @@ export const contactIntro = {
 };
 
 export const formMessages = {
-  success: "Thanks! Your message is on its way — I'll be in touch soon.",
+  success: "Thanks! Your message is on its way. I'll be in touch soon.",
   error:
     "Something went wrong sending your message. Please try again, or email me directly and I'll get right back to you.",
   /** Shown if the Web3Forms key hasn't been set up yet (see .env.example). */
   notConfigured:
-    "The contact form isn't connected yet. Please email me directly for now — I'd still love to hear from you.",
+    "The contact form isn't connected yet. Please email me directly for now, I'd still love to hear from you.",
 };

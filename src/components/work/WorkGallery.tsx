@@ -73,7 +73,7 @@ export function WorkGallery() {
 
       {visible.length === 0 ? (
         <p className="py-16 text-center text-cocoa-500">
-          No videos in this category yet — check back soon.
+          No videos in this category yet. Check back soon.
         </p>
       ) : null}
 

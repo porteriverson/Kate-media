@@ -9,7 +9,7 @@
 
 export const site = {
   /** Full business name — used in the logo, footer and page titles. */
-  name: "Kate Iverson Social Media",
+  name: "Kate Iverson Media",
 
   /** Short version, used where space is tight. */
   shortName: "Kate Iverson",
@@ -19,10 +19,10 @@ export const site = {
     "Short-form video and social media management for small brands. Strategy, content creation and posting handled end to end, by Kate Iverson.",
 
   /** TODO: replace with the real domain once it's live (no trailing slash). */
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://kateiversonsocial.com",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://kateiversonmedia.com",
 
   /** TODO: replace with Kate's real business email address. */
-  email: "hello@kateiversonsocial.com",
+  email: "hello@kateiversonmedia.com",
 
   /** Where she's based — shown in the footer and contact page. */
   location: "Utah Valley, Utah",
@@ -47,13 +47,13 @@ export type SocialLink = {
 export const socialLinks: SocialLink[] = [
   {
     label: "Instagram",
-    handle: "@kateiversonsocial",
+    handle: "@kateiversonmedia",
     href: "https://www.instagram.com/", // TODO: full profile URL
     icon: "instagram",
   },
   {
     label: "TikTok",
-    handle: "@kateiversonsocial",
+    handle: "@kateiversonmedia",
     href: "https://www.tiktok.com/", // TODO: full profile URL
     icon: "tiktok",
   },

@@ -61,8 +61,8 @@ export function Header() {
         scrolled ? "border-b border-cocoa-100 bg-cream/85 backdrop-blur-md" : "bg-transparent",
       )}
     >
-      <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-5 lg:px-8">
-        <Logo />
+      <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-3 lg:px-8">
+        <Logo priority />
 
         {/* Desktop navigation */}
         <nav aria-label="Main" className="hidden items-center gap-8 md:flex">
@@ -106,7 +106,7 @@ export function Header() {
       <div
         id="mobile-menu"
         hidden={!menuOpen}
-        className="fixed inset-x-0 top-[76px] bottom-0 z-40 border-t border-cocoa-100 bg-cream px-6 py-8 md:hidden"
+        className="absolute inset-x-0 top-full z-40 h-[calc(100dvh-100%)] overflow-y-auto border-t border-cocoa-100 bg-cream px-6 py-8 md:hidden"
       >
         <nav aria-label="Mobile" className="flex flex-col gap-1">
           {navLinks.map((link) => (

@@ -5,7 +5,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { PackageCard } from "@/components/services/PackageCard";
 import { ClosingCta } from "@/components/home/ClosingCta";
 import { CheckIcon, ArrowRightIcon } from "@/components/icons/Icons";
-import { addOns, customPackage, includedInEvery, packages, servicesIntro } from "@/content/services";
+import { addOnGroups, customPackage, includedInEvery, packages, servicesIntro } from "@/content/services";
 import { buildMetadata } from "@/lib/seo";
 
 /* ---------------------------------------------------------------------------
@@ -17,7 +17,7 @@ import { buildMetadata } from "@/lib/seo";
 export const metadata = buildMetadata({
   title: "Services & Packages",
   description:
-    "Monthly social media management packages from Kate Iverson — short-form video production, content strategy, posting, community management and analytics reporting.",
+    "Monthly social media management packages from Kate Iverson: short-form video production, content strategy, posting, community management and analytics reporting.",
   path: "/services",
 });
 
@@ -59,26 +59,39 @@ export default function ServicesPage() {
         </Reveal>
       </Section>
 
-      {/* Add-ons — delete the `addOns` array in services.ts to remove this. */}
-      {addOns.length > 0 ? (
+      {/* Add-ons — delete the `addOnGroups` array in services.ts to remove this. */}
+      {addOnGroups.length > 0 ? (
         <Section compact>
           <Reveal>
-            <div className="mx-auto max-w-3xl">
+            <div className="mx-auto max-w-4xl">
               <h2 className="text-center font-heading text-2xl text-ink">Add-ons</h2>
               <p className="mt-3 text-center text-cocoa-500">
                 Available alongside any package, or on their own.
               </p>
-              <ul className="mt-8 divide-y divide-cocoa-100 border-y border-cocoa-100">
-                {addOns.map((addOn) => (
-                  <li
-                    key={addOn.name}
-                    className="flex items-baseline justify-between gap-6 py-4 text-sm"
+              <div className="mt-8 grid items-start gap-6 md:grid-cols-2">
+                {addOnGroups.map((group) => (
+                  <div
+                    key={group.title}
+                    className="overflow-hidden rounded-3xl border border-blush-200 bg-white"
                   >
-                    <span className="text-ink">{addOn.name}</span>
-                    <span className="shrink-0 font-medium text-cocoa-600">{addOn.price}</span>
-                  </li>
+                    <div className="bg-blush-100 px-6 py-5 text-center">
+                      <h3 className="font-heading text-xl text-ink">{group.title}</h3>
+                      <p className="mt-1 text-sm text-cocoa-500">{group.note}</p>
+                    </div>
+                    <ul className="divide-y divide-cocoa-100 px-6">
+                      {group.items.map((item) => (
+                        <li
+                          key={item.name}
+                          className="flex items-baseline justify-between gap-6 py-4 text-sm"
+                        >
+                          <span className="text-ink">{item.name}</span>
+                          <span className="shrink-0 font-medium text-cocoa-600">{item.price}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
           </Reveal>
         </Section>
@@ -101,7 +114,7 @@ export default function ServicesPage() {
       <ClosingCta
         eyebrow="Next step"
         heading="Not sure which package fits?"
-        body="Send me a quick note about your brand and where you're at. I'll tell you honestly which one makes sense — or if you don't need one at all yet."
+        body="Send me a quick note about your brand and where you're at, and I'll tell you which one makes sense, or if you don't need one yet."
         cta={{ label: "Ask me anything", href: "/contact" }}
       />
     </>

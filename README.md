@@ -1,6 +1,6 @@
-# Kate Iverson Social Media
+# Kate Iverson Media
 
-The website for Kate Iverson Social Media — a portfolio and enquiry site for a
+The website for Kate Iverson Media — a portfolio and enquiry site for a
 short-form video and social media management business.
 
 Built with **Next.js**, **TypeScript** and **Tailwind CSS**, and designed to be
@@ -105,18 +105,40 @@ Everything is in `src/content/portfolio.ts`.
 
 ---
 
-## Adding photos and the logo
+## Photos, logo and the share card
 
-Drop image files into `public/images/`. See `public/images/README.md` for the
-exact filenames and sizes — short version:
+The logo, headshot, browser icon and social share card are all set up already.
+To change any of them, replace the file and keep the same name — no code edit
+needed.
 
-- **Headshot** → save as `public/images/kate-headshot.jpg`. It replaces the
-  placeholder on the About page automatically.
-- **Logo** → save as `public/images/logo.svg`, then open
-  `src/components/layout/Logo.tsx` and change `USE_LOGO_IMAGE = false` to
-  `USE_LOGO_IMAGE = true`.
-- **Favicon** (the little icon in the browser tab) → replace
-  `src/app/icon.svg` with the logo mark.
+| To change… | Replace this file |
+| --- | --- |
+| The logo in the header | `public/images/logo.png` |
+| The logo in the footer (reversed, for the dark background) | `public/images/logo-light.png` |
+| The About page photo | `public/images/kate-headshot.jpg` |
+| The icon in the browser tab | `src/app/icon.png` |
+| The icon when saved to a phone home screen | `src/app/apple-icon.png` |
+| The picture shown when the link is texted or posted | `src/app/opengraph-image.jpg` **and** `src/app/twitter-image.jpg` (keep both identical, 1200 x 630px) |
+
+Full-resolution originals of the logo and headshot are kept in
+`design-assets/` at the top of the project. That folder is **not** published —
+it's storage, so the 19MB original photo never gets sent to a visitor's phone.
+See `public/images/README.md` for sizes and details.
+
+### About the share card
+
+When someone texts or posts a link to the site, they'll see a cream card with
+the logo and the line "Short-form video & social media management". It's the
+same picture for every page.
+
+Two things to know:
+
+- The picture only loads for other people once the site is live on its real
+  domain **and** `NEXT_PUBLIC_SITE_URL` matches that domain.
+- Messaging apps cache these aggressively. After changing the image, use
+  [Facebook's debugger](https://developers.facebook.com/tools/debug/) or
+  [X's card validator](https://cards-dev.twitter.com/validator) to force a
+  refresh, or the old picture may keep showing for a while.
 
 ---
 
@@ -176,11 +198,11 @@ Search the project for `TODO` to find every placeholder. The main ones:
 - [ ] Real videos and client names — `src/content/portfolio.ts`
 - [ ] Real pricing and package inclusions — `src/content/services.ts`
 - [ ] Real result numbers on the About page — `src/content/about.ts`
-- [ ] Headshot photo added to `public/images/`
-- [ ] Logo file added and `USE_LOGO_IMAGE` switched on
-- [ ] Favicon replaced — `src/app/icon.svg`
 - [ ] Web3Forms key added, and a test message sent to confirm it arrives
-- [ ] Share image added (optional) — `public/images/og-image.jpg`
+- [ ] Check the share card looks right by texting yourself a link once it's live
+
+Already done: logo (header + footer), headshot, browser icon, phone icon and
+the social share card.
 
 ---
 
@@ -197,7 +219,11 @@ src/
 │   ├── layout.tsx             Header/footer wrapper, fonts, site-wide SEO
 │   ├── globals.css            Brand colours, fonts, base styles
 │   ├── sitemap.ts             Auto-generated sitemap for search engines
-│   └── robots.ts              Search engine instructions
+│   ├── robots.ts              Search engine instructions
+│   ├── icon.png               Browser tab icon
+│   ├── apple-icon.png         Home screen icon
+│   └── opengraph-image.jpg    The picture shown when the link is shared
+│       + twitter-image.jpg
 │
 ├── content/                 ⭐ ALL EDITABLE CONTENT LIVES HERE
 │   ├── site.ts                Name, email, socials, navigation
@@ -222,7 +248,8 @@ src/
     ├── seo.ts                 Builds each page's SEO tags
     └── utils.ts               Class name helper
 
-public/images/               Photos, logo and share image go here
+public/images/               Logo, headshot and any video covers
+design-assets/               Full-resolution originals (never published)
 ```
 
 ### Notes for a future developer

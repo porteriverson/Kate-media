@@ -55,7 +55,7 @@ export default function ContactPage() {
             <ul className="mt-4 flex flex-col gap-1 text-sm text-cocoa-500">
               {socialLinks.map((link) => (
                 <li key={link.label}>
-                  {link.label} — {link.handle}
+                  {link.handle} on {link.label}
                 </li>
               ))}
             </ul>

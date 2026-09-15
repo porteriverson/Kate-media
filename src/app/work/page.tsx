@@ -13,7 +13,7 @@ import { buildMetadata } from "@/lib/seo";
 export const metadata = buildMetadata({
   title: "My Work",
   description:
-    "A portfolio of short-form video work by Kate Iverson — TikToks, Instagram Reels and YouTube Shorts made for brands in travel, jewelry, food, fitness and lifestyle.",
+    "A portfolio of short-form video work by Kate Iverson: TikToks, Instagram Reels and YouTube Shorts made for brands in travel, jewelry, food, fitness and lifestyle.",
   path: "/work",
 });
 
@@ -24,8 +24,8 @@ export default function WorkPage() {
         <SectionHeading
           as="h1"
           eyebrow="Portfolio"
-          heading="Work that earns the scroll"
-          body="A mix of the formats I make most: hook-led brand videos, product stories and founder-forward content. Filter by industry, or just start tapping."
+          heading="A look at recent work"
+          body="A mix of what I make most: brand videos, product stories and founder-led content. Filter by industry, or just start tapping."
         />
       </Section>
 

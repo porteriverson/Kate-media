@@ -10,30 +10,30 @@
 
 export const aboutIntro = {
   eyebrow: "About",
-  heading: "Strategy first, camera second",
+  heading: "How I ended up doing this",
   /** Short standfirst paragraph shown next to the headshot. */
-  lede: "I'm Kate Iverson — a social media manager who came to content the long way around: through public relations, brand messaging and a genuine obsession with why some videos work and most don't.",
+  lede: "I'm Kate Iverson, a social media manager who got here the long way around, through public relations, brand messaging and a lot of time spent figuring out why some videos work and most don't.",
 };
 
 /* ---------------------------------------------------------------------------
    HEADSHOT
-   TODO: drop the real photo into /public/images/ (e.g. kate-headshot.jpg)
-   and update `src` below. Until then a styled placeholder is shown.
+   To use a different photo, save it as /public/images/kate-headshot.jpg
+   (portrait, around 1200x1600px works best) — no code change needed.
    Keep `alt` descriptive — it's read aloud by screen readers.
    --------------------------------------------------------------------------- */
 export const headshot = {
   src: "/images/kate-headshot.jpg",
-  alt: "Kate Iverson, social media manager, smiling in a bright studio setting",
+  alt: "Kate Iverson smiling outdoors in front of a green wall",
 };
 
 /* ---------------------------------------------------------------------------
    HER STORY — each string is one paragraph.
    --------------------------------------------------------------------------- */
 export const story = [
-  "I earned my bachelor's degree in Public Relations and Strategic Communication from Utah Valley University, where I spent four years learning how brands earn attention and, more importantly, how they keep it. Messaging, audience research, crisis communication, campaign strategy — the unglamorous foundation underneath every piece of content that ever felt effortless.",
-  "That background is still how I start every project. Before I pick up a camera, I want to know who we're talking to, what they already believe about you, and the one thing we need them to walk away understanding. A video without that is just noise with good lighting.",
-  "Since then I've managed social media and created content for companies in the travel services industry and the jewelry industry, among others — two worlds that could not be more different, which turned out to be the best possible training. Travel taught me to sell a feeling and a moment people want to be inside of. Jewelry taught me precision: how to shoot small, detailed products so they look as good on a phone screen as they do in person, and how to build the kind of trust that makes someone comfortable spending real money.",
-  "What carried across both was the same approach. Find the story only that brand can tell, translate it into a format people actually stop for, and stay consistent long enough for it to compound.",
+  "I have a bachelor's degree in Public Relations and Strategic Communication from Utah Valley University, where I spent four years on messaging, audience research, crisis communication and campaign strategy. Less glamorous than it sounds, and it's the reason I think about content the way I do.",
+  "That's still how I start every project. Before I pick up a camera I want to know who we're talking to, what they already think about you, and what we need them to remember afterward.",
+  "Since then I've managed social media and made content for companies in travel services and in jewelry, along with a few others. The two have almost nothing in common, which is probably why they taught me so much. Travel is about selling a feeling, a place someone wants to be inside of. Jewelry is about precision: shooting small, detailed products so they look as good on a phone as they do in person, and earning enough trust that someone feels comfortable spending real money.",
+  "Either way the approach was the same. Find the story only that brand can tell, put it in a format people will actually watch, and keep it going long enough to see it pay off.",
 ];
 
 /* ---------------------------------------------------------------------------
@@ -43,20 +43,20 @@ export const approach = {
   heading: "How I work",
   principles: [
     {
-      title: "Brand voice over trends",
-      body: "Trends are a delivery method, not a strategy. I'll use the format that's working this week, but the message underneath it is always yours.",
+      title: "Brand voice comes first",
+      body: "I'll happily use whatever format is working this week, but the message underneath it is always yours.",
     },
     {
-      title: "Consistency beats perfection",
-      body: "Six good videos this month will outperform one perfect video every quarter. I build systems that keep the content coming.",
+      title: "Consistent beats perfect",
+      body: "Six good videos this month will do more for you than one perfect video every quarter. I set things up so the content keeps coming.",
     },
     {
       title: "Numbers you can act on",
-      body: "Reporting shouldn't be a wall of screenshots. I tell you what worked, what didn't, and what we're changing next month.",
+      body: "You won't get a wall of screenshots from me. You'll get what worked, what didn't, and what we're changing next month.",
     },
     {
       title: "One point of contact",
-      body: "You're not handed off to a junior team. The person you talk to is the person filming, editing and posting.",
+      body: "Nobody hands you off to a junior team. The person you talk to is the person filming, editing and posting.",
     },
   ],
 };
@@ -80,21 +80,21 @@ export const qualifications: Qualification[] = [
     meta: "Education",
   },
   {
-    title: "Social media & content management — travel services",
+    title: "Social media & content management, travel services",
     detail:
-      "Managed content and day-to-day social presence for a travel services company, building destination-led short-form video that converted interest into inquiries.",
+      "Ran day-to-day social and content for a travel services company, built around destination videos that turned interest into inquiries.",
     meta: "Experience",
   },
   {
-    title: "Social media & content management — jewelry",
+    title: "Social media & content management, jewelry",
     detail:
-      "Created product-focused content for a jewelry brand, developing the close-up filming and styling formats that carried the account's growth.",
+      "Made product-focused content for a jewelry brand, including the close-up filming and styling formats the account grew on.",
     meta: "Experience",
   },
   {
     title: "Multi-industry content creation",
     detail:
-      "Additional hands-on work across food and beverage, fitness and lifestyle brands — adapting one strategic process to very different audiences.",
+      "Hands-on work with food and beverage, fitness and lifestyle brands, applying the same process to very different audiences.",
     meta: "Experience",
   },
   // TODO: add certifications here as she earns them, e.g.
@@ -103,20 +103,28 @@ export const qualifications: Qualification[] = [
 
 /* ---------------------------------------------------------------------------
    RESULTS / STATS
-   TODO: these are PLACEHOLDER numbers. Replace them with real results — or
-   delete any you can't back up. Honest, smaller numbers beat vague big ones.
+   Currently empty, so the stats row is hidden on the About page entirely.
+   To bring it back, add entries here with real numbers and the section
+   reappears on its own — no other file needs touching. For example:
+
+     export const stats: Stat[] = [
+       { value: "40k+", label: "Followers grown for client accounts" },
+       { value: "500+", label: "Short-form videos produced" },
+     ];
    --------------------------------------------------------------------------- */
-export const stats = [
-  { value: "0k+", label: "Followers grown for client accounts" }, // TODO: e.g. "40k+"
-  { value: "000+", label: "Short-form videos produced" }, // TODO: e.g. "500+"
-  { value: "0M+", label: "Organic views generated" }, // TODO: e.g. "2M+"
-  { value: "0", label: "Industries worked across" }, // TODO: e.g. "6"
-];
+export type Stat = {
+  /** The big number, written exactly as it should appear, e.g. "40k+". */
+  value: string;
+  /** The short line underneath it. */
+  label: string;
+};
+
+export const stats: Stat[] = [];
 
 /* ---------------------------------------------------------------------------
    PERSONAL BLURB — the human bit at the bottom of the page.
    --------------------------------------------------------------------------- */
 export const personal = {
   heading: "Off the clock",
-  body: "When I'm not filming, I'm usually planning the next trip, reorganizing a camera bag that does not need reorganizing, or sending my friends videos with no context. I'm a big believer that the best content comes from people who are genuinely curious about things — so if you want to talk about your business for an hour, I'm the right person to call.",
+  body: "When I'm not filming, I'm usually planning the next trip, reorganizing a camera bag that does not need reorganizing, or sending friends videos with no context. The best content tends to come from people who are actually curious, so if you want to talk about your business for an hour, I'm happy to.",
 };

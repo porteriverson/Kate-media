@@ -17,7 +17,7 @@ export function Footer() {
       <div className="mx-auto w-full max-w-6xl px-6 py-16 lg:px-8">
         <div className="flex flex-col gap-12 md:flex-row md:justify-between">
           <div className="max-w-sm">
-            <Logo tone="dark" />
+            <Logo tone="dark" imageClassName="h-16 w-auto" />
             <p className="mt-5 text-sm leading-relaxed text-cocoa-100">
               Short-form video and social media management for small brands that want to be
               seen. Based in {site.location}, working with clients anywhere.
@@ -75,7 +75,7 @@ export function Footer() {
           <p>
             &copy; {year} {site.name}. All rights reserved.
           </p>
-          <p>Made with care in Utah.</p>
+          <p>Made in Utah.</p>
         </div>
       </div>
     </footer>

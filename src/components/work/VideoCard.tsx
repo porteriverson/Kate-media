@@ -24,7 +24,7 @@ export function VideoCard({ item, className }: { item: VideoItem; className?: st
   const platform = getPlatform(item.url);
   const embedUrl = getEmbedUrl(item.url);
   const platformLabel = platformLabels[platform];
-  const title = `${item.client} — ${item.caption}`;
+  const title = `${item.client}: ${item.caption}`;
 
   return (
     <figure className={cn("group flex flex-col", className)}>

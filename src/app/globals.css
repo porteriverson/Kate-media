@@ -1,0 +1,140 @@
+@import "tailwindcss";
+
+/* ===========================================================================
+   BRAND TOKENS
+   ---------------------------------------------------------------------------
+   This is the one place site-wide colors, fonts and motion are defined.
+   Change a value here and it updates everywhere on the site.
+
+   Palette: pastel pink (blush) as the accent, warm brown (cocoa) as the
+   complementary color, off-white (cream/ivory) as the dominant background.
+   =========================================================================== */
+@theme {
+  /* --- Typography -------------------------------------------------------
+     The actual font files are loaded in src/app/layout.tsx via next/font.
+     "sans"    = body text (DM Sans)
+     "heading" = headings (Fraunces, a soft editorial serif)              */
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-display), ui-serif, Georgia, serif;
+
+  /* --- Warm neutrals (backgrounds + text) ------------------------------ */
+  --color-cream: #fdfbf8; /* default page background */
+  --color-ivory: #f8f2ec; /* alternating section background */
+  --color-ink: #2b211c; /* body copy */
+
+  /* --- Pastel pink: the accent. Used sparingly — buttons, highlights,
+         icons, small details. Never large blocks of color.               */
+  --color-blush-50: #fdf6f7;
+  --color-blush-100: #fae8eb;
+  --color-blush-200: #f4d2d8;
+  --color-blush-300: #edb6bf; /* the signature pastel pink */
+  --color-blush-400: #e294a2;
+  --color-blush-500: #c9697c;
+  --color-blush-600: #a84e62; /* dark enough for text on light backgrounds */
+
+  /* --- Warm brown: the complementary / secondary color ------------------ */
+  --color-cocoa-50: #faf6f2;
+  --color-cocoa-100: #f0e6dd;
+  --color-cocoa-200: #dfcdbe;
+  --color-cocoa-300: #c4a48e;
+  --color-cocoa-400: #a37b60;
+  --color-cocoa-500: #7e5a44; /* muted/secondary text */
+  --color-cocoa-600: #62442f;
+  --color-cocoa-700: #4a3325; /* dark CTA bands + footer */
+  --color-cocoa-800: #33231a; /* text on pink buttons */
+
+  /* --- Motion: subtle only --------------------------------------------- */
+  --animate-rise: rise 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  --ease-gentle: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===========================================================================
+   BASE STYLES
+   =========================================================================== */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Keeps anchor links from hiding underneath the sticky header. */
+    scroll-padding-top: 6rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* A clear, on-brand focus ring for keyboard users. */
+  :focus-visible {
+    outline: 2px solid var(--color-blush-600);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background-color: var(--color-blush-200);
+    color: var(--color-cocoa-800);
+  }
+}
+
+/* ===========================================================================
+   SCROLL REVEAL
+   Used by <Reveal> (src/components/ui/Reveal.tsx). Elements start hidden and
+   fade up once when they scroll into view.
+   =========================================================================== */
+@layer components {
+  .reveal {
+    opacity: 0;
+  }
+
+  .reveal-visible {
+    animation: var(--animate-rise);
+  }
+}
+
+/* Respect people who ask their device for less motion. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+  }
+}

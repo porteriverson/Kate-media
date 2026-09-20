@@ -37,7 +37,7 @@ export const intro = {
 export const workPreview = {
   eyebrow: "Recent work",
   heading: "A look at what I've been making",
-  body: "Reels, TikToks and Shorts, all filmed and edited in-house.",
+  body: "Reels and short-form brand videos, all filmed and edited in-house.",
   cta: { label: "See more work", href: "/work" },
 };
 

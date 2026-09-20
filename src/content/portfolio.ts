@@ -68,7 +68,7 @@ export type Category = (typeof categories)[number];
 export const videos: VideoItem[] = [
   {
     id: "travel-01",
-    url: "https://www.tiktok.com/@tiktok/video/7365424000000000000", // TODO: real TikTok link
+    url: "https://www.instagram.com/reel/C1000000001/", // TODO: real Instagram Reel link
     client: "Coastal Tours Co.",
     category: "Travel",
     caption: "Destination teaser that drove a spike in booking inquiries.",
@@ -76,7 +76,7 @@ export const videos: VideoItem[] = [
   },
   {
     id: "jewelry-01",
-    url: "https://www.instagram.com/reel/C1234567890/", // TODO: real Instagram Reel link
+    url: "https://www.instagram.com/reel/C1000000002/", // TODO: real Instagram Reel link
     client: "Wren & Gold Jewelry",
     category: "Jewelry",
     caption: "Close-up product story built around a new collection launch.",
@@ -84,15 +84,15 @@ export const videos: VideoItem[] = [
   },
   {
     id: "food-01",
-    url: "https://www.youtube.com/shorts/dQw4w9WgXcQ", // TODO: real YouTube Short link
+    url: "https://www.instagram.com/reel/C1000000003/", // TODO: real Instagram Reel link
     client: "Marigold Cafe",
     category: "Food & Drink",
-    caption: "Behind-the-counter Short introducing the seasonal menu.",
+    caption: "Behind-the-counter Reel introducing the seasonal menu.",
     featured: true,
   },
   {
     id: "fitness-01",
-    url: "https://www.tiktok.com/@tiktok/video/7365424000000000001", // TODO: real link
+    url: "https://www.instagram.com/reel/C1000000004/", // TODO: real link
     client: "Studio Six Pilates",
     category: "Fitness",
     caption: "Founder-led trend format that doubled the account's reach.",
@@ -100,38 +100,38 @@ export const videos: VideoItem[] = [
   },
   {
     id: "lifestyle-01",
-    url: "https://www.instagram.com/reel/C0987654321/", // TODO: real link
+    url: "https://www.instagram.com/reel/C1000000005/", // TODO: real link
     client: "The Linen House",
     category: "Lifestyle",
     caption: "Soft, slow-living aesthetic for a home goods brand.",
   },
   {
     id: "travel-02",
-    url: "https://www.youtube.com/shorts/aqz-KE-bpKQ", // TODO: real link
+    url: "https://www.instagram.com/reel/C1000000006/", // TODO: real link
     client: "Alpine Escapes",
     category: "Travel",
-    caption: "Itinerary walkthrough repurposed across all three platforms.",
+    caption: "Itinerary walkthrough repurposed across the whole account.",
   },
   {
     id: "jewelry-02",
-    url: "https://www.tiktok.com/@tiktok/video/7365424000000000002", // TODO: real link
+    url: "https://www.instagram.com/reel/C1000000007/", // TODO: real link
     client: "Wren & Gold Jewelry",
     category: "Jewelry",
     caption: "Styling series that became the account's best-performing format.",
   },
   {
     id: "food-02",
-    url: "https://www.instagram.com/reel/C1122334455/", // TODO: real link
+    url: "https://www.instagram.com/reel/C1000000008/", // TODO: real link
     client: "Marigold Cafe",
     category: "Food & Drink",
     caption: "User-generated-style review that ran as a paid ad.",
   },
   {
     id: "fitness-02",
-    url: "https://www.youtube.com/shorts/ScMzIvxBSi4", // TODO: real link
+    url: "https://www.instagram.com/reel/C1000000009/", // TODO: real link
     client: "Studio Six Pilates",
     category: "Fitness",
-    caption: "Class-preview Short used to fill a new time slot.",
+    caption: "Class-preview Reel used to fill a new time slot.",
   },
 ];
 

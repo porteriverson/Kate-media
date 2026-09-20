@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 
 /* ---------------------------------------------------------------------------
    SocialLinks
-   The row of Instagram / TikTok / LinkedIn icons. Edit the links themselves
+   The row of social icons. Edit the links themselves
    in src/content/site.ts.
    --------------------------------------------------------------------------- */
 

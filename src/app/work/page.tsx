@@ -13,7 +13,7 @@ import { buildMetadata } from "@/lib/seo";
 export const metadata = buildMetadata({
   title: "My Work",
   description:
-    "A portfolio of short-form video work by Kate Iverson: TikToks, Instagram Reels and YouTube Shorts made for brands in travel, jewelry, food, fitness and lifestyle.",
+    "A portfolio of short-form video work by Kate Iverson: Instagram Reels and brand videos made for brands in travel, jewelry, food, fitness and lifestyle.",
   path: "/work",
 });
 

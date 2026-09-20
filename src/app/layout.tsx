@@ -41,7 +41,6 @@ export const metadata: Metadata = {
     "social media manager",
     "short-form video",
     "Instagram Reels",
-    "TikTok content creator",
     "content strategy",
     "Utah social media management",
   ],

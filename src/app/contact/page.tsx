@@ -37,7 +37,6 @@ export default function ContactPage() {
             <h2 className="text-xs font-semibold uppercase tracking-[0.22em] text-cocoa-400">
               Prefer email?
             </h2>
-            {/* TODO: real email address is set in src/content/site.ts */}
             <a
               href={`mailto:${site.email}`}
               className="mt-3 inline-flex items-center gap-3 font-heading text-xl text-ink underline-offset-4 transition-colors duration-300 hover:text-blush-600 hover:underline"

@@ -10,6 +10,17 @@ const documentResponseSchema = z.object({
   ).optional(),
 });
 
+const envelopeFieldsResponseSchema = z.object({
+  id: z.string(),
+  fields: z.array(
+    z.object({
+      id: z.number().int().positive(),
+      type: z.string(),
+      fieldMeta: z.record(z.string(), z.unknown()).nullable().optional(),
+    }),
+  ),
+});
+
 const prefillFieldSchema = z.object({
   fieldId: z.number().int().positive(),
   type: z.enum(["text", "number", "date", "radio", "checkbox", "dropdown", "signature", "name"]),
@@ -64,6 +75,49 @@ async function documensoRequest<T>(path: string, init: RequestInit) {
   return (await response.json()) as T;
 }
 
+async function ensureTemplatePrefillFieldsReadOnly(
+  templateEnvelopeId: string,
+  prefillFields: Array<{ id: number; type: string; value: string }>,
+) {
+  if (prefillFields.length === 0) return;
+
+  const templateRaw = await documensoRequest<unknown>(`/envelope/${templateEnvelopeId}`, {
+    method: "GET",
+  });
+  const template = envelopeFieldsResponseSchema.parse(templateRaw);
+  const fieldsById = new Map(template.fields.map((field) => [field.id, field]));
+  const updates = prefillFields.flatMap((field) => {
+    const templateField = fieldsById.get(field.id);
+    if (!templateField) {
+      throw new Error(`Documenso template field ${field.id} was not found.`);
+    }
+    if (templateField.type.toLowerCase() !== field.type.toLowerCase()) {
+      throw new Error(`Documenso template field ${field.id} has an unexpected type.`);
+    }
+    if (templateField.fieldMeta?.readOnly === true && templateField.fieldMeta.required !== true) return [];
+
+    const fieldMeta = templateField.fieldMeta ?? {};
+    return [{
+      id: field.id,
+      type: templateField.type,
+      fieldMeta: {
+        ...fieldMeta,
+        type: typeof fieldMeta.type === "string" ? fieldMeta.type : field.type,
+        required: false,
+        readOnly: true,
+      },
+    }];
+  });
+
+  if (updates.length === 0) return;
+
+  await documensoRequest<unknown>("/envelope/field/update-many", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ envelopeId: templateEnvelopeId, data: updates }),
+  });
+}
+
 export function buildPrefillFields(values: Record<string, string | null | undefined>) {
   return Object.entries(getPrefillMap())
     .map(([name, field]) => ({
@@ -83,6 +137,7 @@ export async function sendContract(input: {
   prefillFields: Array<{ id: number; type: string; value: string }>;
 }) {
   const { templateEnvelopeId, recipientId } = getConfig();
+  await ensureTemplatePrefillFieldsReadOnly(templateEnvelopeId, input.prefillFields);
   const payload = {
     envelopeId: templateEnvelopeId,
     externalId: `kate-contract-${input.contractId}`,

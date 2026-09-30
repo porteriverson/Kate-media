@@ -15,9 +15,10 @@ deployed on **Vercel**.
 3. [Adding videos to the portfolio](#adding-videos-to-the-portfolio)
 4. [Adding photos and the logo](#adding-photos-and-the-logo)
 5. [Setting up the contact form](#setting-up-the-contact-form)
-6. [Deploying to Vercel](#deploying-to-vercel)
-7. [Before launch checklist](#before-launch-checklist)
-8. [Project structure](#project-structure)
+6. [Using the private backend](#using-the-private-backend)
+7. [Deploying to Vercel](#deploying-to-vercel)
+8. [Before launch checklist](#before-launch-checklist)
+9. [Project structure](#project-structure)
 
 ---
 
@@ -74,34 +75,57 @@ After saving, refresh the browser to see the change.
 
 ## Adding videos to the portfolio
 
-Everything is in `src/content/portfolio.ts`.
+The current portfolio uses direct video files served from a public Supabase
+Storage bucket. The metadata and display order live in
+`src/content/portfolio.ts`.
 
-1. On TikTok, Instagram or YouTube, open the post and use **Share → Copy link**.
-2. In the file, copy one of the existing blocks and paste it where you want the
-   video to appear (the order in the file is the order on the page).
-3. Update the details:
+### One-time Supabase setup
+
+1. Use the public Storage bucket named `website-videos-public`.
+2. Restrict the bucket to video files and set a sensible file-size limit.
+3. Upload optimized video files and use their object paths in
+   `src/content/portfolio.ts`.
+4. Add the Supabase project URL to `.env.local` and Vercel:
+
+   ```
+   NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
+   ```
+
+5. For each video, create a vertical poster image around 720 × 1280px, keep it
+   under roughly 500KB, and place it in `public/images/work/`.
+
+### Adding a hosted video
+
+Add or update a record in `src/content/portfolio.ts`:
 
 ```ts
 {
-  id: "jewelry-03",                                  // any unique short label
-  url: "https://www.tiktok.com/@you/video/123456",   // the link you copied
-  client: "Wren & Gold Jewelry",                     // shown under the video
-  category: "Jewelry",                               // must match a category
-  caption: "Styling series that doubled saves.",     // one short line
-  featured: true,                                    // optional: show on home page
+  id: "jewelry-03",
+  videoPath: "portfolio/v1/jewelry-03.mp4",
+  videoUrl: getPortfolioVideoUrl("portfolio/v1/jewelry-03.mp4"),
+  client: "Wren & Gold Jewelry",
+  category: "Jewelry",
+  caption: "Styling series that doubled saves.",
+  thumbnail: "/images/work/jewelry-03.jpg",
+  featured: true,
 },
 ```
 
 **Notes**
 
-- TikTok, Instagram Reels and YouTube Shorts links all work — the right embed is
-  worked out automatically.
+- The four current records use direct Supabase video files. They are not loaded
+  until a visitor taps the poster.
+- Keep object paths versioned or uniquely named when replacing a video instead
+  of overwriting the old object.
+- The old `url` field remains available for TikTok, Instagram Reels and YouTube
+  Shorts when an external embed is needed in the future.
 - `category` must exactly match one of the names in the `categories` list at the
   top of the same file. Add new categories to that list and filter buttons
   appear on their own. Categories with no videos are hidden automatically.
 - `featured: true` adds a video to the strip on the home page. Three or four
   featured videos looks best.
-- Videos only load when someone taps play, which keeps the site fast.
+- Videos only load when someone taps play, which keeps the site fast. Posters
+  are the only media loaded during the initial page render.
 
 ---
 
@@ -171,6 +195,30 @@ visitors never see. Bots fill it in, and those submissions are discarded.
 
 ---
 
+## Using the private backend
+
+The private backend lives at `/admin`. It uses Supabase Auth for Kate's
+email/password login, stores client and provider status in Supabase, creates
+Stripe Customers, sends hosted invoices, and sends contracts through
+Documenso.
+
+Add the backend variables from `.env.example` to `.env.local` and to Vercel.
+The Supabase project already contains the backend tables and RLS policies. To
+finish account setup:
+
+1. Create Kate's email/password user in Supabase Auth.
+2. Add that user's UUID to `public.admin_users` in the Supabase SQL editor.
+3. Add the Stripe Price IDs to `STRIPE_PRICE_CATALOG_JSON`.
+4. Configure Stripe's webhook URL as `/api/webhooks/stripe`.
+5. Upload the contract template to Documenso, then set its envelope ID and
+   field mapping in the Documenso environment variables.
+6. Configure Documenso's webhook URL as `/api/webhooks/documenso`.
+
+The dashboard intentionally sends one invoice at a time. It does not create
+Stripe subscriptions or expose a client-facing portal.
+
+---
+
 ## Deploying to Vercel
 
 1. Push this project to a GitHub repository.
@@ -199,6 +247,10 @@ Search the project for `TODO` to find every placeholder. The main ones:
 - [ ] Real pricing and package inclusions — `src/content/services.ts`
 - [ ] Real result numbers on the About page — `src/content/about.ts`
 - [ ] Web3Forms key added, and a test message sent to confirm it arrives
+- [ ] Supabase publishable/secret keys added to the deployment environment
+- [ ] Kate's Supabase Auth user added to `public.admin_users`
+- [ ] Stripe Price catalog and webhook secret configured
+- [ ] Documenso template, field mapping, API token, and webhook secret configured
 - [ ] Check the share card looks right by texting yourself a link once it's live
 
 Already done: logo (header + footer), headshot, browser icon, phone icon and
@@ -216,6 +268,8 @@ src/
 │   ├── services/page.tsx      Packages & pricing
 │   ├── about/page.tsx         About & qualifications
 │   ├── contact/page.tsx       Contact form
+│   ├── admin/                  Private client, invoice and contract dashboard
+│   ├── api/                    Authenticated admin APIs and provider webhooks
 │   ├── layout.tsx             Header/footer wrapper, fonts, site-wide SEO
 │   ├── globals.css            Brand colours, fonts, base styles
 │   ├── sitemap.ts             Auto-generated sitemap for search engines
@@ -246,7 +300,10 @@ src/
 └── lib/                     Small helpers
     ├── embeds.ts              Turns share links into video embeds
     ├── seo.ts                 Builds each page's SEO tags
-    └── utils.ts               Class name helper
+    ├── utils.ts               Class name helper
+    ├── stripe.ts              Server-only Stripe integration
+    ├── documenso.ts           Server-only Documenso integration
+    └── supabase/              Browser, server, proxy and generated DB clients
 
 public/images/               Logo, headshot and any video covers
 design-assets/               Full-resolution originals (never published)
@@ -254,11 +311,12 @@ design-assets/               Full-resolution originals (never published)
 
 ### Notes for a future developer
 
-- Next.js App Router; every page is statically pre-rendered.
+- Next.js App Router; public pages are static while `/admin` and provider APIs
+  are dynamic server routes.
 - Tailwind CSS v4 with a CSS-first theme — design tokens are defined in the
   `@theme` block at the top of `src/app/globals.css`, not a JS config file.
-- Only four components are client components (`Header`, `Reveal`, `VideoCard`,
-  `WorkGallery`, `ContactForm`); everything else is a server component.
+- Public content stays server-rendered where possible; dashboard forms and
+  actions are client components backed by authenticated server routes.
 - Video embeds use a click-to-load facade. No third-party iframe or script is
   requested until a visitor plays a video, which keeps the initial load light.
 - `AGENTS.md` and `CLAUDE.md` in the project root are generated automatically by

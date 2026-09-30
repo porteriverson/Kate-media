@@ -5,11 +5,11 @@
    re-order videos. The layout takes care of itself.
 
    TO ADD A VIDEO:
-     1. Open the post on TikTok / Instagram / YouTube and copy its URL
-        (the "Share > Copy link" option).
-     2. Copy one of the blocks below, paste it at the top of the list, and
-        update the url, client, category and caption.
-     3. Save. That's it — the right embed is detected from the URL.
+     1. Upload the optimized video to the public Supabase `website-videos-public`
+        bucket and use the resulting object path below.
+     2. Add the matching `videoPath`, client, category, caption and thumbnail.
+     3. Save. The public URL is built automatically from the Supabase project
+        URL in `NEXT_PUBLIC_SUPABASE_URL`.
 
    SUPPORTED LINKS:
      TikTok     https://www.tiktok.com/@username/video/1234567890123456789
@@ -20,15 +20,22 @@
      • `featured: true` makes a video show up in the strip on the home page.
        Keep 3–4 videos featured for the best layout.
      • `category` must match one of the labels in `categories` below.
-     • Every video currently uses a PLACEHOLDER link and a PLACEHOLDER client
-       name — swap in the real ones as they're ready.
+     • Social `url` entries remain supported for future external embeds.
+     • Keep video paths versioned instead of replacing an existing Supabase
+       object, so CDN/browser caches cannot show an older file.
    =========================================================================== */
+
+import { getPortfolioVideoUrl } from "@/lib/media";
 
 export type VideoItem = {
   /** Unique id — any short, lowercase, no-spaces label works. */
   id: string;
-  /** Full share URL of the post (TikTok, Instagram Reel, or YouTube Short). */
-  url: string;
+  /** Optional share URL for a TikTok, Instagram Reel, or YouTube Short. */
+  url?: string;
+  /** Optional direct URL for a self-hosted portfolio video. */
+  videoUrl?: string;
+  /** Versioned path inside the public Supabase Storage bucket. */
+  videoPath?: string;
   /** Client or brand name shown under the video. */
   client: string;
   /** Must match one of the `categories` below — powers the filter buttons. */
@@ -62,76 +69,47 @@ export type Category = (typeof categories)[number];
 
 /* ---------------------------------------------------------------------------
    THE VIDEOS
-   TODO: every entry below is a placeholder. Replace the `url`, `client` and
-   `caption` values with real posts. Delete any extras you don't need.
+   The four initial records use the names/content already laid out in the
+   starter portfolio. Replace the client/caption text and add poster files as
+   the real media is supplied. The uploaded object paths are wired in below.
    --------------------------------------------------------------------------- */
 export const videos: VideoItem[] = [
   {
-    id: "travel-01",
-    url: "https://www.instagram.com/reel/C1000000001/", // TODO: real Instagram Reel link
-    client: "Coastal Tours Co.",
-    category: "Travel",
-    caption: "Destination teaser that drove a spike in booking inquiries.",
-    featured: true,
-  },
-  {
     id: "jewelry-01",
-    url: "https://www.instagram.com/reel/C1000000002/", // TODO: real Instagram Reel link
-    client: "Wren & Gold Jewelry",
+    videoPath: "v15044gf0000d9gp5vvog65k316bpc6g.MP4",
+    videoUrl: getPortfolioVideoUrl("v15044gf0000d9gp5vvog65k316bpc6g.MP4"),
+    client: "Retro Charm Co.",
     category: "Jewelry",
-    caption: "Close-up product story built around a new collection launch.",
+    caption: "Market day reel advertising new charms, custom bracelets, and friendship",
     featured: true,
   },
   {
-    id: "food-01",
-    url: "https://www.instagram.com/reel/C1000000003/", // TODO: real Instagram Reel link
-    client: "Marigold Cafe",
-    category: "Food & Drink",
-    caption: "Behind-the-counter Reel introducing the seasonal menu.",
+    id: "travel-01",
+    videoPath: "1e4d7dca99d24a028f5497b2ce2f27e9.MOV",
+    videoUrl: getPortfolioVideoUrl("1e4d7dca99d24a028f5497b2ce2f27e9.MOV"),
+    client: "Naxos, Greece",
+    category: "Travel",
+    caption: "Travel shots on the Greek island of Naxos.",
     featured: true,
-  },
-  {
-    id: "fitness-01",
-    url: "https://www.instagram.com/reel/C1000000004/", // TODO: real link
-    client: "Studio Six Pilates",
-    category: "Fitness",
-    caption: "Founder-led trend format that doubled the account's reach.",
-    featured: true,
-  },
-  {
-    id: "lifestyle-01",
-    url: "https://www.instagram.com/reel/C1000000005/", // TODO: real link
-    client: "The Linen House",
-    category: "Lifestyle",
-    caption: "Soft, slow-living aesthetic for a home goods brand.",
   },
   {
     id: "travel-02",
-    url: "https://www.instagram.com/reel/C1000000006/", // TODO: real link
-    client: "Alpine Escapes",
+    videoPath: "v15044gf0000d8t1f8fog65vilktdgsg.MP4",
+    videoUrl: getPortfolioVideoUrl("v15044gf0000d8t1f8fog65vilktdgsg.MP4"),
+    client: "Italy, Greece",
     category: "Travel",
-    caption: "Itinerary walkthrough repurposed across the whole account.",
+    caption: "Travel is so much more than destinations and history, its about people and culture.",
+
+    featured: true,
   },
   {
-    id: "jewelry-02",
-    url: "https://www.instagram.com/reel/C1000000007/", // TODO: real link
-    client: "Wren & Gold Jewelry",
-    category: "Jewelry",
-    caption: "Styling series that became the account's best-performing format.",
-  },
-  {
-    id: "food-02",
-    url: "https://www.instagram.com/reel/C1000000008/", // TODO: real link
-    client: "Marigold Cafe",
-    category: "Food & Drink",
-    caption: "User-generated-style review that ran as a paid ad.",
-  },
-  {
-    id: "fitness-02",
-    url: "https://www.instagram.com/reel/C1000000009/", // TODO: real link
-    client: "Studio Six Pilates",
-    category: "Fitness",
-    caption: "Class-preview Reel used to fill a new time slot.",
+    id: "travel-03",
+    videoPath: "77758cb1500942dab5d3858124a591ce.MOV",
+    videoUrl: getPortfolioVideoUrl("77758cb1500942dab5d3858124a591ce.MOV"),
+    client: "Tiffany's Tours",
+    category: "Travel",
+    caption: "Short form content highlighting the beauty of the Greek Islands.",
+    featured: true,
   },
 ];
 

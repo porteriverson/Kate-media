@@ -27,6 +27,10 @@ they live in `src/app/` (see below).
 
 Keep files under ~500KB where possible.
 
+The full portfolio videos are not stored in this folder. Upload optimized video
+files to the public Supabase `website-videos-public` bucket and keep only their
+small poster images here.
+
 ## Icons and the share card (in `src/app/`)
 
 | File | What it is |

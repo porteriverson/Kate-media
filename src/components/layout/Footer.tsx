@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Logo } from "@/components/layout/Logo";
 import { SocialLinks } from "@/components/layout/SocialLinks";
 import { navLinks, site } from "@/content/site";
@@ -10,7 +13,10 @@ import { navLinks, site } from "@/content/site";
    --------------------------------------------------------------------------- */
 
 export function Footer() {
+  const pathname = usePathname();
   const year = new Date().getFullYear();
+
+  if (pathname.startsWith("/admin")) return null;
 
   return (
     <footer className="bg-cocoa-700 text-cream">

@@ -20,16 +20,36 @@ import { cn } from "@/lib/utils";
 
 export function VideoCard({ item, className }: { item: VideoItem; className?: string }) {
   const [playing, setPlaying] = useState(false);
+  const [videoError, setVideoError] = useState(false);
 
-  const platform = getPlatform(item.url);
-  const embedUrl = getEmbedUrl(item.url);
-  const platformLabel = platformLabels[platform];
+  const platform = getPlatform(item.url ?? "");
+  const embedUrl = item.url ? getEmbedUrl(item.url) : null;
+  const directVideo = item.videoUrl;
+  const videoMimeType = item.videoPath?.toLowerCase().endsWith(".mov")
+    ? "video/quicktime"
+    : "video/mp4";
+  const canPlay = Boolean(directVideo || embedUrl);
+  const platformLabel = directVideo ? "Portfolio video" : platformLabels[platform];
   const title = `${item.client}: ${item.caption}`;
 
   return (
     <figure className={cn("group flex flex-col", className)}>
       <div className="relative aspect-[9/16] w-full overflow-hidden rounded-2xl border border-cocoa-100 bg-blush-100 shadow-sm transition duration-500 ease-gentle group-hover:shadow-md">
-        {playing && embedUrl ? (
+        {playing && directVideo && !videoError ? (
+          <video
+            controls
+            autoPlay
+            playsInline
+            preload="metadata"
+            poster={item.thumbnail}
+            onError={() => setVideoError(true)}
+            aria-label={title}
+            className="absolute inset-0 h-full w-full object-cover"
+          >
+            <source src={directVideo} type={videoMimeType} />
+            Your browser does not support the video tag.
+          </video>
+        ) : playing && embedUrl ? (
           <iframe
             src={embedUrl}
             title={title}
@@ -38,12 +58,17 @@ export function VideoCard({ item, className }: { item: VideoItem; className?: st
             allowFullScreen
             className="absolute inset-0 h-full w-full border-0"
           />
+        ) : videoError ? (
+          <VideoError item={item} />
         ) : (
           <Cover
             item={item}
-            embeddable={Boolean(embedUrl)}
+            embeddable={canPlay}
             platformLabel={platformLabel}
-            onPlay={() => setPlaying(true)}
+            onPlay={() => {
+              setVideoError(false);
+              setPlaying(true);
+            }}
           />
         )}
       </div>
@@ -59,6 +84,35 @@ export function VideoCard({ item, className }: { item: VideoItem; className?: st
         <p className="mt-1.5 text-sm leading-relaxed text-cocoa-500">{item.caption}</p>
       </figcaption>
     </figure>
+  );
+}
+
+function VideoError({ item }: { item: VideoItem }) {
+  return (
+    <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-blush-100 px-6 text-center">
+      <p className="text-sm leading-relaxed text-cocoa-600">
+        This video could not be loaded right now.
+      </p>
+      {item.videoUrl ? (
+        <a
+          href={item.videoUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="rounded-full bg-cocoa-700 px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-cream transition hover:bg-cocoa-800"
+        >
+          Open video
+        </a>
+      ) : item.url ? (
+        <a
+          href={item.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="rounded-full bg-cocoa-700 px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-cream transition hover:bg-cocoa-800"
+        >
+          Open original
+        </a>
+      ) : null}
+    </div>
   );
 }
 
@@ -106,13 +160,17 @@ function Cover({
       </span>
 
       <span className="absolute inset-x-3 bottom-3 text-xs font-medium text-cream/95">
-        {embeddable ? "Tap to play" : `Watch on ${platformLabel}`}
+        {embeddable
+          ? "Tap to play"
+          : item.url
+            ? `Watch on ${platformLabel}`
+            : "Video coming soon"}
       </span>
     </>
   );
 
   // If the link isn't one we can embed, send people to the post itself.
-  if (!embeddable) {
+  if (!embeddable && item.url) {
     return (
       <a
         href={item.url}
@@ -124,6 +182,10 @@ function Cover({
         {inner}
       </a>
     );
+  }
+
+  if (!embeddable) {
+    return <div className="absolute inset-0 block">{inner}</div>;
   }
 
   return (

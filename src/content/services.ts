@@ -21,6 +21,8 @@ export type Package = {
   priceNote: string;
   /** Bullet list of what's included. Add or remove lines freely. */
   includes: string[];
+  /** Default contract wording for the scope summary field. */
+  contractScope: string;
   /** Set true on ONE package to give it the "Most popular" highlight. */
   highlighted?: boolean;
 };
@@ -40,6 +42,7 @@ export const packages: Package[] = [
       "Caption writing",
       "Scheduling",
     ],
+    contractScope: "Monthly social media support for one platform, including content planning, caption writing, scheduling, 8 feed posts, and 2 short-form videos.",
   },
   {
     id: "professional",
@@ -56,6 +59,7 @@ export const packages: Package[] = [
       "Scheduling",
       "Monthly analytics",
     ],
+    contractScope: "Monthly social media support for up to 2 platforms, including content planning, caption writing, scheduling, 12 feed posts, 4 short-form videos, and monthly analytics.",
     highlighted: true,
   },
   {
@@ -74,6 +78,7 @@ export const packages: Package[] = [
       "Monthly analytics",
       "Comment & DM management",
     ],
+    contractScope: "Full-service monthly social media support for up to 3 platforms, including content planning, caption writing, scheduling, 20 feed posts, 8 short-form videos, monthly analytics, and comment and DM management.",
   },
 ];
 

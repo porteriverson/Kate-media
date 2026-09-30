@@ -8,21 +8,20 @@
 
 export const hero = {
   /** Small line above the headline. */
-  eyebrow: "Social media management & short-form video",
+  eyebrow: "Social media management",
 
   /** The big headline. Words wrapped in *asterisks* are highlighted in pink. */
-  headline: "Short-form video that gets small brands *noticed*.",
+  headline: "Take social media *off your plate*.",
 
   /** One or two sentences under the headline. */
-  subhead:
-    "I'm Kate. I plan, film, edit and post the content that turns your followers into customers, so you can get back to running your business.",
+  subhead: "I'll do your socials so you can run your business.",
 
   primaryCta: { label: "View my work", href: "/work" },
   secondaryCta: { label: "Get in touch", href: "/contact" },
 };
 
 /** Short trust line under the hero buttons. TODO: update once real numbers exist. */
-export const heroProof = "Trusted by brands in travel, jewelry, food and fitness";
+export const heroProof = "Strategy, content, and posting—all taken care of.";
 
 export const intro = {
   eyebrow: "Hi, I'm Kate",

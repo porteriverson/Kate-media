@@ -54,6 +54,8 @@ export function Header() {
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
+  if (pathname.startsWith("/admin")) return null;
+
   return (
     <header
       className={cn(
